@@ -5,9 +5,12 @@ import { CustomerDetailComponent } from './category/customer-detail/customer-det
 import { CustomerComponent } from './category/customer/customer.component';
 
 const routes: Routes = [
-  { path: '', component: MainComponent }
-  // { path: 'customer', component: CustomerComponent },
-  // { path: 'customer/detail/:id', component: CustomerDetailComponent }
+  { path: '', component: MainComponent, 
+    children:[
+      { path: 'customer', component: CustomerComponent },
+      { path: 'customer/detail/:id', component: CustomerDetailComponent }
+    ] 
+  }
 ];
 
 @NgModule({
