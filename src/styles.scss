@@ -375,3 +375,13 @@ a {
     @include card;
   }
 }
+
+.p-paginator {
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+
+  >p-dropdown {
+    order: -1;
+    margin-right: auto;
+  }
+}

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { ShareModule } from './share/share.module';
 import { MainModule } from './main/main.module';
 
+import { CategoryModule } from './category/category.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -14,7 +15,8 @@ import { MainModule } from './main/main.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     ShareModule,
-    MainModule
+    MainModule,
+    CategoryModule
   ],
   providers: [],
   bootstrap: [AppComponent],
