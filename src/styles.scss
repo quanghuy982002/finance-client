@@ -375,3 +375,23 @@ a {
     @include card;
   }
 }
+
+.p-paginator {
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+
+  >p-dropdown {
+    order: -1;
+    margin-right: auto;
+  }
+}
+
+.p-datatable .p-datatable-header{
+  background: white;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.border-round-2xl {
+  background: white;
+}
