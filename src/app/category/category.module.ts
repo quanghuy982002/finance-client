@@ -3,14 +3,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShareModule } from '../share/share.module';
 import { CardModule } from 'primeng/card';
-import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
-import { TagModule } from 'primeng/tag';
-import { TableModule } from 'primeng/table';
 import { ChipModule } from 'primeng/chip';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
@@ -19,15 +14,22 @@ import { FormsModule } from '@angular/forms';
 import { CategoryRoutingModule } from './category-routing.module';
 import { RoleComponent } from './role/role.component';
 import { RoleDetailComponent } from './role/role-detail/role-detail.component';
-import { RouterModule } from '@angular/router';
-import { DropdownModule } from 'primeng/dropdown';
+import { StaffComponent } from './staff/staff.component';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { DetailComponent } from './staff/detail/detail.component';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [
     CustomerDetailComponent,
     CustomerComponent,
     RoleDetailComponent,
-    RoleComponent
+    RoleComponent,
+    StaffComponent,
+    DetailComponent,
   ],
   imports: [
     CommonModule,
@@ -45,22 +47,15 @@ import { DropdownModule } from 'primeng/dropdown';
     CheckboxModule,
     RadioButtonModule,
     ScrollPanelModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [
     CustomerDetailComponent,
     CustomerComponent,
     RoleComponent,
     RoleDetailComponent,
-    RouterModule,
-    InputTextModule,
-    ButtonModule,
-    TableModule,
-    TagModule,
-    DividerModule,
-    AvatarModule,
-    DropdownModule,
+    StaffComponent,
+    DetailComponent,
   ],
-
 })
-export class CategoryModule { }
+export class CategoryModule {}
