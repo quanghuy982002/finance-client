@@ -33,6 +33,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { CostImplicationsComponent } from './cost-implications/cost-implications.component';
 import { ContractComponent } from './contract/contract.component';
 import { TechnologyComponent } from './contract/technology/technology.component';
+import { ProjectComponent } from './project/project.component';
+import { ProjectDetailComponent } from './project/project-detail/project-detail.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { TechnologyComponent } from './contract/technology/technology.component'
     CostImplicationsComponent,
     ContractComponent,
     TechnologyComponent,
+    ProjectComponent,
+    ProjectDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -84,6 +88,8 @@ import { TechnologyComponent } from './contract/technology/technology.component'
     CostImplicationsComponent,
     ContractComponent,
     TechnologyComponent,
+    ProjectComponent,
+    ProjectDetailComponent
   ],
 })
 export class CategoryModule {}
