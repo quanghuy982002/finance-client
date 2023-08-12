@@ -31,6 +31,8 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CostImplicationsComponent } from './cost-implications/cost-implications.component';
+import { ContractComponent } from './contract/contract.component';
+import { TechnologyComponent } from './contract/technology/technology.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { CostImplicationsComponent } from './cost-implications/cost-implications
     StaffComponent,
     DetailComponent,
     CostImplicationsComponent,
+    ContractComponent,
+    TechnologyComponent,
   ],
   imports: [
     CommonModule,
@@ -78,6 +82,8 @@ import { CostImplicationsComponent } from './cost-implications/cost-implications
     StaffComponent,
     DetailComponent,
     CostImplicationsComponent,
+    ContractComponent,
+    TechnologyComponent,
   ],
 })
 export class CategoryModule {}
