@@ -9,7 +9,7 @@
 }
 /* Styles for the employee name and id */
 .project-details {
-    display: flex;
+    // display: flex;
     flex-direction: column;
     font-weight: bold;
 }
@@ -52,4 +52,10 @@
 .staff-org {
     color: gray;
     font-size: 1.2rem;
+}
+.handle-overflow{ 
+    white-space: nowrap; 
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

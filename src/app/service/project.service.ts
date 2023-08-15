@@ -7,7 +7,7 @@ export class ProjectService {
   constructor() { }
   projects: Project[] = [
     {
-      project_name: 'DuAn1',
+      project_name: 'DuAn1 DuAn1DuAn1DuAn1DuAn1DuAn1DuAn1 DuAn1DuAn1DuAn1',
       company: 'Bu01',
       start_date: '15/02/2023',
       finish_date: '30/09/2023',

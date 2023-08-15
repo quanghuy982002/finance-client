@@ -9,18 +9,18 @@ export class StaffserviceService {
 
   staffs: Staff[] = [
     {
-      "name": "John Doe",
+      "name": "John Doeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
       "id": "123",
       "picture": "/assets/avatar.png",
-      "email": "john.doe@example.com",
+      "email": "john.doe@example.commmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
       "org": "Department A",
       "title": "Manager",
       "status": true,
       "project": [
         {
-          "project": "Project A",
+          "project": "Project Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
           "picture": "/assets/project.jpg",
-          "role": "Developer",
+          "role": "Developerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
           "startDate": "2023-06-01",
           "endDate": "2023-08-31",
           "status": true
