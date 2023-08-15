@@ -41,13 +41,13 @@
                     <div *ngIf="key === 'name'" class="flex gap-3 align-items-center">
                         <img [src]="item.picture" class="avatar">
                         <div class="staff-details">
-                            <span class="staff-name">{{ item.name }}</span>
-                            <span class="staff-id">{{ item.id }}</span>
+                            <span class="staff-name handle-overflow">{{ item.name }}</span>
+                            <span class="staff-id handle-overflow">{{ item.id }}</span>
                         </div>
                     </div>
                     <p-tag *ngIf="key === 'status'" [value]="getStatus(item.status)" [severity]="getSeverity(item)">
                     </p-tag>
-                    <span *ngIf="key !== 'status' && key !== 'name'">{{ item[key] }}</span>
+                    <div class="handle-overflow" *ngIf="key !== 'status' && key !== 'name'">{{ item[key] }}</div>
                 </td>
             </tr>
         </ng-template>

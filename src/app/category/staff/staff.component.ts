@@ -36,7 +36,6 @@ export class StaffComponent implements OnInit {
 
   ngOnInit(): void {
     this.keys.forEach((key, i) => (this.dict[key] = this.colnames[i]));
-    this.numRows = this.items.length;
   }
 
   getSeverity(staff: any): string {

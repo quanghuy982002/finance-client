@@ -21,7 +21,6 @@ export class DetailComponent implements OnInit {
 
   colnames: string[] = ['Dự án', 'Vai trò', 'Ngày bắt đầu', 'Ngày kết thúc', 'Trạng thái'];
 
-  numRows: number = 0;
   options: number[] = [10, 25, 50]
   first: number = 0;
 
@@ -32,7 +31,6 @@ export class DetailComponent implements OnInit {
   ngOnInit(): void {
     this.keys.forEach((key, i) => (this.dict[key] = this.colnames[i]));
     this.items = this.staffService.getProjectsByStaffId(this.id);
-    this.numRows = this.items.length;
     let staffDetail = this.staffService.getDetailById(this.id); 
     if (staffDetail) {
       this.staff = staffDetail;
