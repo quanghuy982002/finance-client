@@ -2,10 +2,10 @@
  <div class=" border-round-2xl mb-3 p-3">
     <h4 class="m-0">Thông tin chung</h4>
     <div class="flex">
-        <p-avatar class="mt-4" label="P" styleClass="mr-2" size="xlarge"></p-avatar>
+        <p-avatar class="mt-4" [image]="customer?.avatarImage || '' " styleClass="mr-2" size="xlarge"></p-avatar>
         <div>
-            <h4>{{ getDefaultIfUndefined(customer?.name, 'Tên khách hàng') }}</h4>
-            <p class="font-light">{{ getDefaultIfUndefined(customer?.code, 'Mã khách hàng') }}</p>
+            <h4>{{ customer?.name}}</h4>
+            <p class="font-light">{{ customer?.code}}</p>
         </div>
     </div>
     <p-divider></p-divider>
@@ -13,137 +13,69 @@
         <div class="flex">
             <div class="flex col-4">
                 <span class="font-light col-5">Mã số thuế: </span>
-                <span class="col-5 ellipsis">etdrytadsfdgfdasffghsfdgfhhsfdgxfhghgsfdgfhghguygtu</span>
+                <span class="col-5 ellipsis">{{customer?.taxId}}</span>
             </div>
             <div class="flex col-4">
                 <span class="font-light col-5">Nhóm khách hàng: </span>
-                <span class="col-5 ellipsis">{{ getDefaultIfUndefined(customer?.group, 'Không có') }}</span>
+                <span class="col-5 ellipsis">{{ customer?.groupName}}</span>
             </div>
         </div>
         <div class="flex">
             <div class="flex col-4">
                 <span class="font-light col-5">Số điện thoại: </span>
-                <span class="col-5 ellipsis">sedsfdvgfbgnhdasfdghadsfghazsdxfcgsfdghtdrfyty</span>
+                <span class="col-5 ellipsis">{{customer?.phoneNumber}}</span>
             </div>
             <div class="flex col-4">
                 <span class="font-light col-5">Email: </span>
-                <span class="col-5 ellipsis">etdrysdvfdbgfnhdsafghdsfghefdshgjedsfhgdsgfhhftjygu</span>
+                <span class="col-5 ellipsis">{{customer?.email}}</span>
             </div>
             <div class="flex col-4">
                 <span class="font-light col-5">Fax: </span>
-                <span class="col-5 ellipsis">setdrdsefhgdefgsdhfgwdasefhgtdwaesfhgyyftuyguh</span>
+                <span class="col-5 ellipsis">{{customer?.fax}}</span>
             </div>
         </div>
         <div class="flex col-12">
             <div class="flex col-4">
                 <span class="font-light col-5">Địa chỉ: </span>
-                <span class="col-5">rsedtrfysdfgdbfvdfxbcgnhvmbsfdxghcgjzsfdgxhkbjkdsfgxhvjkxdfchgjhdasf</span>
+                <span class="col-12">{{customer?.address}}</span>
             </div>
         </div>
         <div class="flex">
             <div class="flex col-4">
                 <span class="font-light col-5">Số tài khoản: </span>
-                <span class="col-5 ellipsis">etdrfdvgbhgdasfghdsafghjsadfghdsfghsfdghytfyg</span>
+                <span class="col-5 ellipsis">{{customer?.bankAccountNumber}}</span>
             </div>
             <div class="flex col-4">
                 <span class="font-light col-5">Ngân hàng: </span>
-                <span class="col-5 ellipsis">rsdgtsadfghdasfghadsfghsfdgdffhgtjhyku</span>
+                <span class="col-5 ellipsis">{{customer?.bankName}}</span>
             </div>
             <div class="flex col-4">
                 <span class="font-light col-5">Chi nhánh: </span>
-                <span class="col-5 ellipsis">rétdrsfdvfbgnhdsafghdsfghsfdgxhyfygftgy</span>
+                <span class="col-5 ellipsis">{{customer?.bankBranch}}</span>
             </div>
         </div>
     </div>
 </div>
 
-<div class=" border-round-2xl mb-3 p-3">
+<div class="border-round-2xl mb-3 p-3">
     <h4 class="m-0">Người đại diện</h4>
     <p-divider></p-divider>
     <div class="flex overflow-x-scroll">
-        <div class="border-1 border-round-2xl mb-3 p-3 mr-3 col-3">
-            <div class=" flex">
-                <p-avatar class="mt-4" label="P" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+        <div *ngFor="let representative of customer?.representatives" class="border-1 border-round-2xl mb-3 p-3 mr-3 col-3">
+            <div class="flex">
+                <p-avatar class="mt-4" [image]="representative.avatarImage" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
                 <div>
-                    <h4>Ông Nguyễn Anh Tuấn</h4>
-                    <h4 class="font-light">034928499003</h4>
+                    <h4>{{ representative.name}}</h4>
+                    <h4 class="font-light">{{ representative.phoneNumber }}</h4>
                 </div>
             </div>
-            <h4 class="m-0">Giám đốc</h4>
-        </div>
-        
-        <div class="border-1 border-round-2xl mb-3 p-3 mr-3 col-3">
-            <div class=" flex">
-                <p-avatar class="mt-4" label="P" styleClass="mr-2" size="xlarge"></p-avatar>
-                <div>
-                    <h4>Ông Nguyễn Anh Tuấn</h4>
-                    <h4 class="font-light">034928499003</h4>
-                </div>
-            </div>
-            <h4  class="m-0">Giám đốc</h4>
-        </div>
-
-        <div class="border-1 border-round-2xl mb-3 p-3 mr-3 col-3">
-            <div class=" flex">
-                <p-avatar class="mt-4" label="P" styleClass="mr-2" size="xlarge"></p-avatar>
-                <div>
-                    <h4>Ông Nguyễn Anh Tuấn</h4>
-                    <h4 class="font-light">034928499003</h4>
-                </div>
-            </div>
-            <h4 class="m-0">Giám đốc</h4>
-        </div>
-
-        <div class="border-1 border-round-2xl mb-3 p-3 mr-3 col-3">
-            <div class=" flex">
-                <p-avatar class="mt-4" label="P" styleClass="mr-2" size="xlarge"></p-avatar>
-                <div>
-                    <h4>Ông Nguyễn Anh Tuấn</h4>
-                    <h4 class="font-light">034928499003</h4>
-                </div>
-            </div>
-            <h4  class="m-0">Giám đốc</h4>
-        </div>
-
-        <div class="border-1 border-round-2xl mb-3 p-3 mr-3 col-3">
-            <div class=" flex">
-                <p-avatar class="mt-4" label="P" styleClass="mr-2" size="xlarge"></p-avatar>
-                <div>
-                    <h4>Ông Nguyễn Anh Tuấn</h4>
-                    <h4 class="font-light">034928499003</h4>
-                </div>
-            </div>
-            <h4 class="m-0">Giám đốc</h4>
-        </div>
-
-        <div class="border-1 border-round-2xl mb-3 p-3 mr-3 col-3">
-            <div class=" flex">
-                <p-avatar class="mt-4" label="P" styleClass="mr-2" size="xlarge"></p-avatar>
-                <div>
-                    <h4>Ông Nguyễn Anh Tuấn</h4>
-                    <h4 class="font-light">034928499003</h4>
-                </div>
-            </div>
-            <h4 class="m-0">Giám đốc</h4>
-        </div>
-
-        <div class="border-1 border-round-2xl mb-3 p-3 mr-3 col-3">
-            <div class=" flex">
-                <p-avatar class="mt-4" label="P" styleClass="mr-2" size="xlarge"></p-avatar>
-                <div>
-                    <h4>Ông Nguyễn Anh Tuấn</h4>
-                    <h4>034928499003</h4>
-                </div>
-            </div>
-            <h4 class="m-0">Giám đốc</h4>
+            <h4 class="m-0">{{ representative.position }}</h4>
         </div>
     </div>
 </div>
 
 <div class=" border-round-2xl mb-3 p-3">
     <h4 class="m-0">Thông tin chung</h4>
-    <p>These Angular docs help you learn and use the Angular framework 
-        and development platform, from your first application to optimizing complex single-page vvdvd
-        apps for enterprises. Tutorials and guides include downloadable examples to accelerate your projects.</p>
+    <p>{{customer?.note}}</p>
 </div>
 

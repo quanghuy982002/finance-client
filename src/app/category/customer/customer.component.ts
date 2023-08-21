@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SortEvent } from 'primeng/api';
 import { Customer } from './Customer';
 import * as XLSX from 'xlsx';
+import { HttpClient } from '@angular/common/http';
 
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
@@ -14,33 +14,16 @@ export class CustomerComponent implements OnInit {
   searchText: string = '';
   customers: Customer[] = [];
   numRows: Number = 0;
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, 
+              private route: ActivatedRoute,
+              private http: HttpClient) { }
 
   ngOnInit() {
-    this.originalCustomers  = [
-      { id: 1, code: 'VTsfvdgxhdsafghsadfdghdsafghgS', name: 'Tổng côcszvdfbgdsafdghdsafdghadsfdggng ty giải pháp doanh nghiệp Viettel', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 2, code: 'ABC', name: 'Công ty ABC', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 3, code: 'XYZ', name: 'Công ty XYZ', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 4, code: '123', name: 'Công ty 123', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 5, code: 'DEF', name: 'Công ty DEF', group: 'Trong viettel', status: 'Không hoạt động' },
-      { id: 6, code: 'VTS', name: 'Tổng công ty giải pháp doanh nghiệp Viettel', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 7, code: 'ABC', name: 'Công ty ABC', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 8, code: 'XYZ', name: 'Công ty XYZ', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 9, code: '123', name: 'Công ty 123', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 10, code: 'DEF', name: 'Công ty DEF', group: 'Trong viettel', status: 'Không hoạt động' },
-      { id: 11, code: 'VTS', name: 'Tổng công ty giải pháp doanh nghiệp Viettel', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 12, code: 'ABC', name: 'Công ty ABC', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 13, code: 'XYZ', name: 'Công ty XYZ', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 14, code: '123', name: 'Công ty 123', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 15, code: 'DEF', name: 'Công ty DEF', group: 'Trong viettel', status: 'Không hoạt động' },
-      { id: 16, code: 'VTS', name: 'Tổng công ty giải pháp doanh nghiệp Viettel', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 17, code: 'ABC', name: 'Công ty ABC', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 18, code: 'XYZ', name: 'Công ty XYZ', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 19, code: '123', name: 'Công ty 123', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 20, code: 'DEF', name: 'Công ty DEF', group: 'Trong viettel', status: 'Không hoạt động' },
-    ];
-    this.customers = this.originalCustomers;
-    this.numRows = this.customers.length;
+    this.http.get<Customer[]>('http://localhost:8087/api/v1/customer').subscribe((data) => {
+      this.originalCustomers = data;
+      this.customers = this.originalCustomers;
+      this.numRows = this.customers.length;
+    });
   }
 
   getTagSeverity(status: string): string {
@@ -68,7 +51,7 @@ export class CustomerComponent implements OnInit {
         index + 1,
         customer.code,
         customer.name,
-        customer.group,
+        customer.groupName,
         customer.status
       ]);
     });
@@ -101,7 +84,7 @@ export class CustomerComponent implements OnInit {
         customer &&
         (customer.code && customer.code.toLowerCase().includes(searchText)) ||
         (customer.name && customer.name.toLowerCase().includes(searchText)) ||
-        (customer.group && customer.group.toLowerCase().includes(searchText)) ||
+        (customer.groupName && customer.groupName.toLowerCase().includes(searchText)) ||
         (customer.status && customer.status.toLowerCase().includes(searchText))
     );
   }

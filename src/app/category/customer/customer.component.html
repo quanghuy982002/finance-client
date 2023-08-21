@@ -35,14 +35,12 @@
                 <td>{{ i + 1 }}</td>
                 <td style="text-align: center;" class="code-ellipsis">{{customer.code}}</td>
                 <td class="ellipsis">
-                    <img [alt]="customer.name"
-                        src="https://media.istockphoto.com/id/586067830/vector/flat-icon-a-capybara.jpg?s=170667a&w=0&k=20&c=V0pgPnBUONzIkyMy-X4DMfuucYZGTXnGJt-we08UTNU="
-                        width="32" style="vertical-align: middle" />
+                    <img [alt]="customer.name" [src]="customer.avatarImage" width="32" style="vertical-align: middle" />
                     <span class="ml-1 vertical-align-middle" title="{{customer.name}}">{{ customer.name }}</span>
                 </td>
                 <td style="text-align: center;">
                     <p-chip>
-                        <div class="p-1">{{customer.group}}</div>
+                        <div class="p-1">{{customer.groupName}}</div>
                     </p-chip>
                 </td>
                 <td>
