@@ -38,4 +38,4 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     BreadcrumbComponent,
   ],
 })
-export class ShareModule {}
+export class ShareModule { }

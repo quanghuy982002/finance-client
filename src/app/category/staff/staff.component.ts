@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
-import { StaffserviceService } from 'src/app/staffservice/staffservice.service';
+import { StaffserviceService } from 'src/app/service/staffservice.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -12,7 +13,8 @@ export class StaffComponent implements OnInit {
   constructor(
     private staffService: StaffserviceService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) {
     this.items = this.staffService.staffs;
   }
@@ -20,7 +22,7 @@ export class StaffComponent implements OnInit {
   dict: any = {};
 
   items: any[] = [];
-  keys = ['name', 'email', 'org', 'title', 'status'];
+  keys = ['name', 'email', 'department', 'title', 'status'];
 
   colnames: string[] = [
     'Nhân viên',
@@ -33,9 +35,18 @@ export class StaffComponent implements OnInit {
   numRows: number = 0;
   options: number[] = [10, 25, 50];
   first: number = 0;
+  totalRecords: number = 0;
+
+  searchText: any;
 
   ngOnInit(): void {
     this.keys.forEach((key, i) => (this.dict[key] = this.colnames[i]));
+    // this.staffService.request.code = ""
+    this.filterStaffs(this.searchText)
+  }
+
+  filterStaffs(input?: string) {
+    this.staffService.fetchStaffs({code: input}).subscribe((data) => {this.items = data.data; this.totalRecords = this.items.length });
   }
 
   getSeverity(staff: any): string {
@@ -54,25 +65,19 @@ export class StaffComponent implements OnInit {
     }
   }
   exportToCSV() {
-    const csvData: any[] = [];
 
-    this.items.forEach((item) => {
-      csvData.push({
-        Name: item.name,
-        ID: item.id,
-        // 'Picture': item.picture,
-        Email: item.email,
-        Organization: item.org,
-        Title: item.title,
-        Status: item.status ? 'Active' : 'Inactive',
-      });
-    });
+    this.http.get('http://localhost:8087/api/staff/staff/export', {
+    responseType: 'arraybuffer' as 'json'
+  }).subscribe((data: any) => {
+    const blob = new Blob([data], { type: '.xlsx' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'staffs.xlsx';
+    link.click();
+    window.URL.revokeObjectURL(url);
+  });
 
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(csvData);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'StaffData');
-
-    XLSX.writeFile(wb, 'staff-data.csv');
   }
   onRowClick(id: string) {
     this.router.navigate(['detail', id], { relativeTo: this.route });

@@ -35,6 +35,7 @@ import { ContractComponent } from './contract/contract.component';
 import { TechnologyComponent } from './contract/technology/technology.component';
 import { ProjectComponent } from './project/project.component';
 import { ProjectDetailComponent } from './project/project-detail/project-detail.component';
+import { Observable } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { ProjectDetailComponent } from './project/project-detail/project-detail.
     DialogModule,
     ConfirmDialogModule,
     HttpClientModule,
+    
   ],
   exports: [
     CustomerDetailComponent,
@@ -92,4 +94,4 @@ import { ProjectDetailComponent } from './project/project-detail/project-detail.
     ProjectDetailComponent
   ],
 })
-export class CategoryModule {}
+export class CategoryModule { }

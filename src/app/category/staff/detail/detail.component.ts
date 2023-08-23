@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Project, Staff, StaffserviceService } from 'src/app/staffservice/staffservice.service';
+import { Project, Staff, StaffserviceService } from 'src/app/service/staffservice.service';
 import { ActivatedRoute } from '@angular/router';
+import { ProjectService } from 'src/app/service/project.service';
 
 @Component({
   selector: 'app-detail',
@@ -9,34 +10,47 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailComponent implements OnInit {
 
-  constructor(private staffService: StaffserviceService, private route: ActivatedRoute) {
+  constructor(private staffService: StaffserviceService, private projectService: ProjectService ,private route: ActivatedRoute) {
+
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
     
-    this.id = String(this.route.snapshot.paramMap.get('id'));
   }
 
   dict: any = {};
 
+  // items: any ;
   items: Project[] = [];
-  keys = ['project', 'role', 'startDate', 'endDate', 'status'];
+  // items: (Project | null)[] = [];
+  keys = ['name', 'role', 'startDate', 'endDate', 'status'];
 
   colnames: string[] = ['Dự án', 'Vai trò', 'Ngày bắt đầu', 'Ngày kết thúc', 'Trạng thái'];
 
   options: number[] = [10, 25, 50]
   first: number = 0;
 
-  id: string = "";
+  id: number = 0;
 
-  staff!: Staff;
+  staff: any
+  index: number = 0;
 
   ngOnInit(): void {
     this.keys.forEach((key, i) => (this.dict[key] = this.colnames[i]));
-    this.items = this.staffService.getProjectsByStaffId(this.id);
-    let staffDetail = this.staffService.getDetailById(this.id); 
-    if (staffDetail) {
-      this.staff = staffDetail;
-    }
+    this.staffService.getDetailById(this.id).subscribe((data) => { this.staff = data });
+    this.staffService.getProjectsByStaffId(this.id)
+    // console.log(this.projectService.getProjectByMemberId(this.id))
+    this.items.push(this.projectService.getProjectByMemberId(this.id));
+    // if (project) {
+    //   this.items = project;
+    // }
+    // console.log(this.items)
+    this.index = this.getIndexById(this.id);
+    // console.log(this.index)
+    
   }
-
+  
+  getIndexById(id: number) {
+    return this.items[0]?.member.findIndex((item: any) => item.id === id)
+  }
   getSeverity(prj: any): string {
     if (!prj.status) {
       return 'danger';
@@ -52,5 +66,4 @@ export class DetailComponent implements OnInit {
       return "Không hoạt động"
     }
   }
-
 }
