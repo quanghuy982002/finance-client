@@ -1,7 +1,10 @@
 <div>
-    <p-table [value]="customers" [tableStyle]="{'min-width': '60rem'}" [paginator]="true" [rows]="10"
+    <p-table [value]="customers" [tableStyle]="{'min-width': '60rem'}" [paginator]="true"
+        [rows]="selectedPageSize"
         [showCurrentPageReport]="true" currentPageReportTemplate="{first} - {last} trong số {totalRecords}"
-        [rowsPerPageOptions]="[10, 25, 50]" [rowHover]="true">
+        [rowsPerPageOptions]="pageSizeOptions" [rowHover]="true"
+        (onPage)="onPageChange($event)" (onPage)="onPageSizeChange($event)">
+    >
         <ng-template pTemplate="caption">
             <div class="flex justify-content-between align-items-end mb-4 mx-3 w-100">
                 <div class="search-box col-md-7">

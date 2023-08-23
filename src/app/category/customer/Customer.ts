@@ -1,7 +1,7 @@
 import { Representative } from "./Representative";
 
 export interface Customer {
-    id? : number;
+    id : number;
     code?: string;
     name?: string;
     groupName?: string;

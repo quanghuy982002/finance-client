@@ -1,5 +1,5 @@
 export class Representative {
-    // id!: number;
+    id!: number;
     name!: string;
     gender!: string;
     phoneNumber!: string;

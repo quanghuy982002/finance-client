@@ -31,9 +31,4 @@ export class CustomerDetailComponent implements OnInit {
       );
     });
   }
-
-  getDefaultIfUndefined(value: string | undefined, defaultValue: string): string {
-    return value !== undefined ? value : defaultValue;
-  }
-
 }
