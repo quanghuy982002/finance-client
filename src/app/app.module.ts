@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 import { MainModule } from './main/main.module';
 import { ShareModule } from './share/share.module';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ShareModule } from './share/share.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     MainModule,
-    ShareModule
+    ShareModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
