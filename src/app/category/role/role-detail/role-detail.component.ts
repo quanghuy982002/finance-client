@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Member, Role, RoleService } from 'src/app/service/role.service';
+import { Role, RoleService } from 'src/app/service/role.service';
 
 @Component({
   selector: 'app-role-detail',
@@ -9,21 +9,32 @@ import { Member, Role, RoleService } from 'src/app/service/role.service';
 })
 export class RoleDetailComponent implements OnInit {
   constructor(private activateRoute: ActivatedRoute, private roleService: RoleService) {
-    this.roleId = String(this.activateRoute.snapshot.paramMap.get('id'))
+    this.roleId = Number(this.activateRoute.snapshot.paramMap.get('id'))
   }
-  employees: Member[] = []
-  roleId: string = ""
-  role: Role|undefined = {
-    id: '',
-    titleRole: '',
-    projectRole: '',
-    status: false,
-    member: []
-  }
+  staffs: any;
+  id!: number;
+  roleId: number = 0;
+  role: Role | undefined;
+
   ngOnInit(): void {
-    this.employees = this.roleService.getMemberByRoleId(this.roleId);
-    this.role = this.roleService.getRoleById(this.roleId);
+    this.getRoleById(this.roleId);
+    this.getStaffByRoleId(this.roleId);
   }
+
+  getStaffByRoleId(id: number) {
+    this.roleService.getStaffByRoleId(id).subscribe(data => {
+      this.staffs = data;
+      console.log(this.staffs)
+    })
+  }
+
+  getRoleById(id: number) {
+    this.roleService.getRoleById(id).subscribe(data => {
+      this.role = data;
+      console.log(this.role)
+    })
+  }
+
   getSeverity(status: boolean|undefined) {
     if (status) {
       return "success"

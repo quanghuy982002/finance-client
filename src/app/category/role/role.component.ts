@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RoleService } from 'src/app/service/role.service';
+import { Role, RoleService } from 'src/app/service/role.service';
 import * as XLSX from 'xlsx';
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,22 +14,31 @@ export class RoleComponent implements OnInit {
   constructor(private router: Router, private roleService: RoleService, private route: ActivatedRoute) {
   }
 
-  roles = this.roleService.getRolesList()
-  keys: string[] = ['id', 'titleRole', 'projectRole', 'status'];
+  keys: string[] = ['id', 'roleTilte', 'roleProject', 'status'];
   colnames: string[] = ['Mã roles', 'Roles chức danh', 'Roles dự án', 'Trạng thái'];
   dict: any = {};
-
+  roles: Role[] = [];
+  numRoles: number = 0;
   ngOnInit(): void {
     this.keys.forEach((key, i) => (this.dict[key] = this.colnames[i]));
-  }
+    this.roleService.getRoles().subscribe(data => {
+      this.roles = data;
+      this.numRoles = this.roles.length;
+    })
 
+  }
   getSeverity(status: boolean) {
     if (status) {
       return 'success'
     }
     else return 'danger'
   }
-
+  searchRole(searchText: string) {
+    this.roleService.searchRole(searchText).subscribe((data: any) => {
+      this.roles = data.data;
+      this.numRoles = data.totalRecord;
+    })
+  }
   translateStatus(status: boolean) {
     if (status) {
       return 'Hoạt động';
@@ -37,7 +46,7 @@ export class RoleComponent implements OnInit {
     else return 'Không hoạt động'
   }
 
-  navigateRoleDetail(id: string) {
+  navigateRoleDetail(id: number) {
     this.router.navigate(['detail', id], { relativeTo: this.route })
   }
 
@@ -48,7 +57,7 @@ export class RoleComponent implements OnInit {
     const sheetName = 'Danh sách Roles';
 
     this.roles.forEach(role => {
-      data.push([role.id, role.titleRole, role.projectRole, role.status ? 'Hoạt động' : 'Không hoạt động'])
+      data.push([role.id, role.roleTitle, role.roleProject, role.status ? 'Hoạt động' : 'Không hoạt động'])
     })
 
     const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
