@@ -19,10 +19,11 @@ export class ProjectDetailComponent implements OnInit {
   projectId: string = ""
   project: Project | undefined = {
     id: '',
-    project_name: '',
+    name: '',
     company: '',
-    start_date: '',
-    finish_date: '',
+    picture: '',
+    startDate: '',
+    endDate: '',
     pm: {
       name: '',
       image: ''
