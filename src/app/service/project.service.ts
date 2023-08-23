@@ -27,7 +27,6 @@ export class ProjectService {
           role: 'director',
           status: true,
         },
-        {
           id: 3,
           employee: { name: ' Nguyễn Văn A', image: '/assets/avt.png' },
           email: 'nguyenvanA@gmail.com ',
@@ -65,7 +64,7 @@ export class ProjectService {
           email: 'nguyenvanA@gmail.com ',
           start_date: '15/5/2023',
           finish_date: '15/5/2023',
-          role: 'pm',
+          role: 'dev',
           status: true,
         },
         {

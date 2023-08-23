@@ -1,83 +1,74 @@
 import { Component, OnInit } from '@angular/core';
-import { SortEvent } from 'primeng/api';
 import { Customer } from './Customer';
-import * as XLSX from 'xlsx';
+import { HttpClient } from '@angular/common/http';
 
 import { ActivatedRoute, Router } from '@angular/router';
+export interface CustomerSearchRequest {
+  pageSize?: number;
+  page?: number;
+  code?: string;
+  name?: string;
+}
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
+
+  totalRecords: number = 0;
+  pageSizeOptions: number[] = [10, 25, 50];
+  selectedPageSize: number = 10;
   originalCustomers: Customer[] = [];
   searchText: string = '';
   customers: Customer[] = [];
-  numRows: Number = 0;
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  numRows: number = 0;
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private http: HttpClient
+  ) { }
 
   ngOnInit() {
-    this.originalCustomers  = [
-      { id: 1, code: 'VTsfvdgxhdsafghsadfdghdsafghgS', name: 'Tổng côcszvdfbgdsafdghdsafdghadsfdggng ty giải pháp doanh nghiệp Viettel', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 2, code: 'ABC', name: 'Công ty ABC', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 3, code: 'XYZ', name: 'Công ty XYZ', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 4, code: '123', name: 'Công ty 123', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 5, code: 'DEF', name: 'Công ty DEF', group: 'Trong viettel', status: 'Không hoạt động' },
-      { id: 6, code: 'VTS', name: 'Tổng công ty giải pháp doanh nghiệp Viettel', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 7, code: 'ABC', name: 'Công ty ABC', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 8, code: 'XYZ', name: 'Công ty XYZ', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 9, code: '123', name: 'Công ty 123', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 10, code: 'DEF', name: 'Công ty DEF', group: 'Trong viettel', status: 'Không hoạt động' },
-      { id: 11, code: 'VTS', name: 'Tổng công ty giải pháp doanh nghiệp Viettel', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 12, code: 'ABC', name: 'Công ty ABC', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 13, code: 'XYZ', name: 'Công ty XYZ', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 14, code: '123', name: 'Công ty 123', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 15, code: 'DEF', name: 'Công ty DEF', group: 'Trong viettel', status: 'Không hoạt động' },
-      { id: 16, code: 'VTS', name: 'Tổng công ty giải pháp doanh nghiệp Viettel', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 17, code: 'ABC', name: 'Công ty ABC', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 18, code: 'XYZ', name: 'Công ty XYZ', group: 'Trong viettel', status: 'Hoạt động' },
-      { id: 19, code: '123', name: 'Công ty 123', group: 'Ngoài Viettel', status: 'Không hoạt động' },
-      { id: 20, code: 'DEF', name: 'Công ty DEF', group: 'Trong viettel', status: 'Không hoạt động' },
-    ];
-    this.customers = this.originalCustomers;
-    this.numRows = this.customers.length;
+    this.search();
+  }
+
+  onPageChange(event: any) {
+    const newPage = Math.floor(event.first / event.rows) + 1;
+    this.loadCustomers(newPage, this.selectedPageSize);
+  }
+
+  onPageSizeChange(event: any) {
+    this.selectedPageSize = event.rows;
+    this.loadCustomers(1, this.selectedPageSize);
   }
 
   getTagSeverity(status: string): string {
-    if (status === 'Hoạt động') {
+    switch (status) {
+      case 'Hoạt động':
         return 'success';
-    } else if (status === 'Không hoạt động') {
+      case 'Không hoạt động':
         return 'danger';
-    } else if (status === 'Tạm dừng') {
+      case 'Tạm dừng':
         return 'info';
-    } else {
+      default:
         return 'warning';
     }
   }
 
   exportToExcel() {
-    const fileName = 'danh-sach-khach-hang.xlsx';
-    const sheetName = 'Danh sách khách hàng';
-
-    const data: any[][] = [
-      ['#', 'Mã khách hàng', 'Tên khách hàng', 'Nhóm khách hàng', 'Trạng thái']
-    ];
-
-    this.customers.forEach((customer, index) => {
-      data.push([
-        index + 1,
-        customer.code,
-        customer.name,
-        customer.group,
-        customer.status
-      ]);
+    this.http.get('http://localhost:8087/api/v1/customer/export', {
+      responseType: 'arraybuffer' as 'json'
+    }).subscribe((data: any) => {
+      const blob = new Blob([data], { type: '.xlsx' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'customers.xlsx';
+      link.click();
+      window.URL.revokeObjectURL(url);
     });
-
-    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, sheetName);
-
-    XLSX.writeFile(wb, fileName);
   }
 
   routerLink(customer: Customer) {
@@ -85,24 +76,42 @@ export class CustomerComponent implements OnInit {
   }
 
   search() {
-    if (this.searchText) {
-      this.customers = this.filterCustomers(this.searchText);
-      this.numRows = this.customers.length;
-    } else {
-      this.customers = this.originalCustomers;
-      this.numRows = this.customers.length;
-    }
+    const searchText = this.searchText.trim().toLowerCase();
+
+    const searchRequest: CustomerSearchRequest = {
+      pageSize: this.selectedPageSize,
+      code: searchText,
+      name: ''
+    };
+
+    this.fetchCustomers(searchRequest);
   }
 
-  filterCustomers(searchText: string): Customer[] {
-    searchText = searchText.toLowerCase();
-    return this.customers.filter(
-      customer =>
-        customer &&
-        (customer.code && customer.code.toLowerCase().includes(searchText)) ||
-        (customer.name && customer.name.toLowerCase().includes(searchText)) ||
-        (customer.group && customer.group.toLowerCase().includes(searchText)) ||
-        (customer.status && customer.status.toLowerCase().includes(searchText))
-    );
+  loadCustomers(page: number, pageSize: number) {
+    const searchText = this.searchText.trim().toLowerCase();
+
+    const searchRequest: CustomerSearchRequest = {
+      pageSize: pageSize,
+      page: page,
+      // code: searchText,
+      // name: searchText
+    };
+
+    this.fetchCustomers(searchRequest);
+  }
+
+  fetchCustomers(request: CustomerSearchRequest) {
+    this.http
+      .post<any>('http://localhost:8087/api/v1/customer/search', request)
+      .subscribe((response) => {
+        console.log('API Response:', response);
+        const responseData = response.data;
+        this.customers = Array.isArray(responseData) ? responseData : [];
+        this.totalRecords = response.totalRecords;
+        this.numRows = this.customers.length;
+      });
   }
 }
+
+
+
