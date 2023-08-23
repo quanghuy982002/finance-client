@@ -8,20 +8,20 @@
                 <span class="md:col-6 text-overflow-ellipsis overflow-hidden">{{role?.code}}</span>
             </div>
             <div class="grid col-4">
-                <span class="md:col-6 font-light">Role chức danh</span>
-                <div class="md:col-6 text-overflow-ellipsis overflow-hidden">
+                <span class="md:col-5 font-light">Role chức danh</span>
+                <div class="md:col-7 text-overflow-ellipsis overflow-hidden">
                     <span>{{role?.roleTitle}}</span>
                 </div>
             </div>
-            <div class="grid col-4">
+            <div class="grid col-3">
                 <span class="md:col-4 font-light">Roles dự án</span>
                 <div class="md:col-8 text-overflow-ellipsis overflow-hidden">
                     <span>{{role?.roleProject}}</span>
                 </div>
             </div>
-            <div class="grid col-2">
-                <span class="md:col-6 font-light">Trạng thái</span>
-                <span class="md:col-6 pt-1">
+            <div class="grid col-3">
+                <span class="md:col-5 font-light">Trạng thái</span>
+                <span class="md:col-7 pt-1">
                     <p-tag class="pb-1" [value]="translateRoleStatus(role?.status)"
                         [severity]="getSeverity(role?.status)"></p-tag>
                 </span>

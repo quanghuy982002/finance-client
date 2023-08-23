@@ -19,7 +19,7 @@ export class ProjectService {
       status: true,
       member: [
         {
-          id: 2,
+          id: 121,
           employee: { name: ' Nguyễn Văn A', image: "/assets/avt.png" },
           email: 'nguyenvanA@gmail.com ',
           start_date: '15/5/2023',
@@ -28,7 +28,7 @@ export class ProjectService {
           status: true,
         },
         {
-          id: 3,
+          id: 121,
           employee: { name: ' Nguyễn Văn A', image: '/assets/avt.png' },
           email: 'nguyenvanA@gmail.com ',
           start_date: '15/5/2023',
@@ -60,8 +60,8 @@ export class ProjectService {
       status: true,
       member: [
         {
-          id: 6,
-          employee: { name: ' Nguyễn Văn A', image: "/assets/avt.png" },
+          id: 121,
+          employee: { name: 'Trần Thị B', image: "/assets/avt.png" },
           email: 'nguyenvanA@gmail.com ',
           start_date: '15/5/2023',
           finish_date: '15/5/2023',
@@ -69,8 +69,8 @@ export class ProjectService {
           status: true,
         },
         {
-          id: 7,
-          employee: { name: ' Nguyễn Văn A', image: '/assets/avt.png' },
+          id: 121,
+          employee: { name: ' Nguyễn Văn B', image: '/assets/avt.png' },
           email: 'nguyenvanA@gmail.com ',
           start_date: '15/5/2023',
           finish_date: '16/5/2023',
