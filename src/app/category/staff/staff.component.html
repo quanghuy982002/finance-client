@@ -1,6 +1,6 @@
 <div class="">
     <p-table #dt [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [showCurrentPageReport]="true"
-        currentPageReportTemplate="{first} - {last} trong số {totalPages}" [paginator]="true" [value]="items"
+        currentPageReportTemplate="{first} - {last} trong số {{totalRecords}}" [paginator]="true" [value]="items"
         class="responsive-table " [tableStyle]="{ 'min-width': '100%' }" [rowHover]="true"
         [globalFilterFields]="['id', 'name', 'email']">
         <!-- topbar -->
@@ -14,9 +14,12 @@
                 <!-- searchbar -->
                 <span class="p-input-icon-left mr-auto">
                     <i class="pi pi-search border-left-none"></i>
-                    <input type="text" pInputText [style.width]="'360px'" class="border-0"
-                        style="background-color:#f3f7fa;" placeholder="Tìm kiếm mã, tên nhân viên, Email"
-                        (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+                    <!-- <input type="text" pInputText [style.width]="'360px'" class="border-0"
+                        style="background-color:#f3f7fa;" placeholder="Tìm kiếm mã nhân viên"
+                        (input)="dt.filterGlobal($any($event.target).value, 'contains')" /> -->
+                        <input type="text" pInputText [style.width]="'360px'" class="border-0"
+                        style="background-color:#f3f7fa;" placeholder="Tìm kiếm mã nhân viên"
+                        (input)="filterStaffs(filter.value)" #filter/>
                 </span>
                 <!-- export -->
                 <p-button label="Xuất tệp tin" icon="pi pi-download" styleClass="p-button-outlined"
@@ -42,12 +45,15 @@
                         <img [src]="item.picture" class="avatar">
                         <div class="staff-details">
                             <span class="staff-name handle-overflow">{{ item.name }}</span>
-                            <span class="staff-id handle-overflow">{{ item.id }}</span>
+                            <span class="staff-id handle-overflow">{{ item.code }}</span>
                         </div>
                     </div>
+                    <div *ngIf="key === 'department'">{{item.department.name}}</div>
+                    <div *ngIf="key === 'title'">{{item.role.roleTitle}}</div>
                     <p-tag *ngIf="key === 'status'" [value]="getStatus(item.status)" [severity]="getSeverity(item)">
                     </p-tag>
-                    <div class="handle-overflow" *ngIf="key !== 'status' && key !== 'name'">{{ item[key] }}</div>
+                    <div class="handle-overflow" *ngIf="key !== 'status' && key !== 'name' && key !== 'department' && key!== 'title' ">{{
+                        item[key] }}</div>
                 </td>
             </tr>
         </ng-template>

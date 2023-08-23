@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 import { MainModule } from './main/main.module';
 import { ShareModule } from './share/share.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,9 +18,10 @@ import { ShareModule } from './share/share.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     MainModule,
+    HttpClientModule,
     ShareModule
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

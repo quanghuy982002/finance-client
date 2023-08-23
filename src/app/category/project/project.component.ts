@@ -67,10 +67,10 @@ export class ProjectComponent implements OnInit {
     this.projects.forEach((project, index) => {
       data.push([
         index + 1,
-        project.project_name,
+        project.name,
         project.company,
-        project.start_date,
-        project.finish_date,
+        project.startDate,
+        project.endDate,
         project.pm.name,
         project.category,
         project.customer,

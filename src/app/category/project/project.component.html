@@ -45,11 +45,11 @@
                 <td>{{ i +1 }}</td>
                 <td>
                     <p-avatar label="VS" styleClass="mr-2" shape="circle"></p-avatar>
-                    {{project.project_name}}
+                    {{project.name}}
                 </td>
                 <td>{{project.company}}</td>
-                <td>{{ project.start_date }}</td>
-                <td>{{ project.finish_date }}</td>
+                <td>{{ project.startDate }}</td>
+                <td>{{ project.endDate }}</td>
                 <td>
                     <span class="p-column-title">PM</span>
                     <img [alt]="project.pm.name" [src]="project.pm.image" width="32"
