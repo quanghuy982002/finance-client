@@ -1,19 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { SortEvent } from 'primeng/api';
 import { Customer } from './Customer';
-import { HttpClient } from '@angular/common/http';
+
 
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 export interface CustomerSearchRequest {
   pageSize?: number;
   page?: number;
   code?: string;
   name?: string;
 }
+
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.scss']
 })
+
 export class CustomerComponent implements OnInit {
 
   totalRecords: number = 0;
@@ -112,6 +116,3 @@ export class CustomerComponent implements OnInit {
       });
   }
 }
-
-
-
