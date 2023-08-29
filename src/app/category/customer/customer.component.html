@@ -1,14 +1,9 @@
 <div>
-    <p-table [value]="customers" [tableStyle]="{'min-width': '60rem'}" [paginator]="true"
-        [rows]="selectedPageSize"
-        [showCurrentPageReport]="true" currentPageReportTemplate="{first} - {last} trong số {totalRecords}"
-        [rowsPerPageOptions]="pageSizeOptions" [rowHover]="true"
-        (onPage)="onPageChange($event)" (onPage)="onPageSizeChange($event)">
-    >
+    <p-table [value]="customers" [tableStyle]="{'min-width': '60rem'}">
         <ng-template pTemplate="caption">
             <div class="flex justify-content-between align-items-end mb-4 mx-3 w-100">
                 <div class="search-box col-md-7">
-                    <h2 class="flex align-items-end">Khách hàng<p-tag class="ml-1 mb-2">{{numRows}}</p-tag></h2>
+                    <h2 class="flex align-items-end">Khách hàng<p-tag class="ml-1 mb-2">{{totalRecord}}</p-tag></h2>
                     <div class="p-input-icon-left p-input-icon-right">
                         <i class="pi pi-search"></i>
                         <input type="text" pInputText placeholder="Tìm kiếm" [(ngModel)]="searchText" />
@@ -53,4 +48,9 @@
             </tr>
         </ng-template>
     </p-table>
+
+    <p-paginator 
+                 [totalRecords]="totalRecord" 
+                 [rowsPerPageOptions]="pageSizeOptions" 
+                 (onPageChange)="onPageChange($event)"></p-paginator>
 </div>

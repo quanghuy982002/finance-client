@@ -36,6 +36,7 @@ import { TechnologyComponent } from './contract/technology/technology.component'
 import { ProjectComponent } from './project/project.component';
 import { ProjectDetailComponent } from './project/project-detail/project-detail.component';
 
+
 @NgModule({
   declarations: [
     CustomerDetailComponent,

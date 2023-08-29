@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SortEvent } from 'primeng/api';
 import { Customer } from './Customer';
-
-
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 export interface CustomerSearchRequest {
-  pageSize?: number;
+  size?: number;
   page?: number;
   code?: string;
   name?: string;
@@ -20,7 +17,7 @@ export interface CustomerSearchRequest {
 
 export class CustomerComponent implements OnInit {
 
-  totalRecords: number = 0;
+  totalRecord: number = 1;
   pageSizeOptions: number[] = [10, 25, 50];
   selectedPageSize: number = 10;
   originalCustomers: Customer[] = [];
@@ -28,24 +25,28 @@ export class CustomerComponent implements OnInit {
   customers: Customer[] = [];
   numRows: number = 0;
 
+  currentPage: number = 1;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.search();
+    this.loadCustomers(this.currentPage, this.selectedPageSize);
   }
 
   onPageChange(event: any) {
-    const newPage = Math.floor(event.first / event.rows) + 1;
-    this.loadCustomers(newPage, this.selectedPageSize);
+    this.currentPage = event.page + 1;
+    const pageSize = event.rows;
+    this.loadCustomers(this.currentPage, pageSize);
   }
 
   onPageSizeChange(event: any) {
-    this.selectedPageSize = event.rows;
-    this.loadCustomers(1, this.selectedPageSize);
+    this.selectedPageSize = event;
+    this.currentPage = 1;
+    this.loadCustomers(this.currentPage, this.selectedPageSize);
   }
 
   getTagSeverity(status: string): string {
@@ -83,7 +84,7 @@ export class CustomerComponent implements OnInit {
     const searchText = this.searchText.trim().toLowerCase();
 
     const searchRequest: CustomerSearchRequest = {
-      pageSize: this.selectedPageSize,
+      size: this.selectedPageSize,
       code: searchText,
       name: ''
     };
@@ -91,13 +92,13 @@ export class CustomerComponent implements OnInit {
     this.fetchCustomers(searchRequest);
   }
 
-  loadCustomers(page: number, pageSize: number) {
+  loadCustomers(page: number, size: number) {
     const searchText = this.searchText.trim().toLowerCase();
 
     const searchRequest: CustomerSearchRequest = {
-      pageSize: pageSize,
+      size: size,
       page: page,
-      // code: searchText,
+      code: searchText,
       // name: searchText
     };
 
@@ -111,7 +112,7 @@ export class CustomerComponent implements OnInit {
         console.log('API Response:', response);
         const responseData = response.data;
         this.customers = Array.isArray(responseData) ? responseData : [];
-        this.totalRecords = response.totalRecords;
+        this.totalRecord = response.totalRecord;
         this.numRows = this.customers.length;
       });
   }
